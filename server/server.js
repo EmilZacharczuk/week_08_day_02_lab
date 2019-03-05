@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const parser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const createRouter = require('./helpers/create_router.js');
 
@@ -15,6 +16,8 @@ MongoClient.connect('mongodb://localhost:27017')
     app.use('/api/sightings', sightingsRouter);
   })
   .catch(console.err);
+
+app.use(parser.json()); //ask about this
 
 app.listen(3000, function () {
   console.log(`Listening on port ${ this.address().port }`);
